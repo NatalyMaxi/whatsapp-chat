@@ -1,0 +1,27 @@
+.contact {
+  display: flex;
+  justify-content: space-between;
+  padding-left: 13px;
+  align-items: center;
+  cursor: pointer;
+}
+
+.contact__img {
+  width: 49px;
+  height: 49px;
+  border-radius: 50%;
+  object-fit: cover;
+}
+
+.contact__container {
+  display: flex;
+  align-items: center;
+  width: 100%;
+  height: 72px;
+  border-bottom: solid 1px #e2e4e7;
+  color: #3b4a54;
+}
+
+.contact__telephone {
+  padding: 15px;
+}

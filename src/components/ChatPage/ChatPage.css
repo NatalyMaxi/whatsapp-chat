@@ -1,0 +1,28 @@
+.chat {
+  position: relative;
+  height: 100%;
+  width: 100%;
+}
+
+.chat__elem {
+  background-color: #00a884;
+  height: 127px;
+  padding: 0;
+  margin: 0;
+}
+
+.chat__elem::after {
+  position: fixed;
+  top: 0;
+  z-index: -1;
+  width: 100%;
+  content: '';
+}
+
+.chat__wrapper {
+  background-color: #f0f2f5;
+  width: calc(100% - 38px);
+  max-width: 1600px;
+  margin: -110px auto 0;
+  height: calc(100% - 38px);
+}
