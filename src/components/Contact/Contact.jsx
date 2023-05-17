@@ -7,9 +7,9 @@ const Contact = (props) => {
     <div className='contact'>
       <img className='contact__img' src={props.contactAvatar ? props.contactAvatar : avatar} alt='Аватар контакта' />
       <div className='contact__container'>
-        <span className='contact__telephone'>{props.telephone}</span>
+        <span className='contact__telephone'>{props.userName}</span>
       </div>
-</div>
+    </div>
   );
 }
 
