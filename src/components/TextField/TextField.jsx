@@ -1,13 +1,17 @@
+import React from 'react';
 import './TextField.css';
+
+const Box = React.forwardRef((props, ref) => {
+  return <TextField {...props} ref={ref} />
+})
 
 const TextField = (props) => {
   const handleChangeAndSize = (evt) => {
     const target = evt.target;
     target.style.height = '42px';
     target.style.height = `${target.scrollHeight}px`;
-    props.onChange(evt)
-    // handleChange(ev);
   };
+
   return (
     <textarea
       className='textField'
@@ -15,10 +19,11 @@ const TextField = (props) => {
       onChange={handleChangeAndSize}
       placeholder='Введите сообщение'
       name='textField'
-      spellheck= 'true'
-  ></textarea>
+      spellheck='true'
+      ref={props.refItem}
+    ></textarea>
 
   );
 }
 
-export default TextField;
+export default Box;

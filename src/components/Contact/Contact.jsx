@@ -1,13 +1,13 @@
 import './Contact.css';
-import avatar from '../../images/avatar.jpg'
+import avatar from '../../images/avatar.jpg';
 
-const Contact = (props) => {
+const Contact = ({ onClick, contact }) => {
 
   return (
-    <div className='contact' onClick={props.onClick} id={props.contactId}>
-      <img className='contact__img' src={props.contactAvatar ? props.contactAvatar : avatar} alt='Аватар контакта' />
+    <div className='contact' onClick={() => onClick(contact.id)}>
+      <img className='contact__img' src={avatar} alt='Аватар' />
       <div className='contact__container'>
-        <span className='contact__telephone'>{props.userName}</span>
+        <span className='contact__telephone'>{contact.name}</span>
       </div>
     </div>
   );

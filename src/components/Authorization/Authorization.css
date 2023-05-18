@@ -31,6 +31,21 @@
   gap: 15px;
 }
 
+.auth__button {
+  width: 300px;
+  padding: 10px 20px;
+  border: none;
+  border-radius: 8px;
+  margin-top: 20px;
+  background-color: #00a884;
+  color: #ffffff;
+  cursor: pointer;
+}
+
+.auth__button_disabled {
+  background-color: #9de6d6;
+}
+
 .auth__input {
   padding: 10px;
   border: 1px solid #a7dacc;
@@ -50,27 +65,15 @@
 ::-webkit-input-placeholder {
   color: #b1b1b7;
 }
+
 ::-moz-placeholder {
   color: #b1b1b7;
 } /* Firefox 19+ */
+
 :-moz-placeholder {
   color: #b1b1b7;
 } /* Firefox 18- */
+
 :-ms-input-placeholder {
   color: #b1b1b7;
-}
-
-.auth__button {
-  width: 300px;
-  padding: 10px 20px;
-  border: none;
-  border-radius: 8px;
-  margin-top: 20px;
-  background-color: #00a884;
-  color: #ffffff;
-  cursor: pointer;
-}
-
-.auth__button_disabled {
-    background-color: #9de6d6;
 }

@@ -1,33 +1,37 @@
-import React, { useState } from 'react';
+import React, { useState, useRef } from 'react';
 import Search from '../Search/Search';
 import './Main.css';
-import envelope from '../../images/envelope.png'
 import TextField from '../TextField/TextField';
 import clip from '../../images/clip.png'
 import smail from '../../images/smail.png'
 import Contact from '../Contact/Contact';
 import Message from '../Message/Message';
 
-const Main = ({ onAddMessage, messages, userContact }) => {
+const Main = ({ onAddMessage, userContacts }) => {
   const [chatContent, setChatContent] = useState(false)
-  const [chatData, setChatData] = useState('');
   const [chatId, setChatId] = useState('');
+  const [messages, setMessages] = useState([]);
+  const [searchText, setSearchText] = useState('');
+  const textFieldRef = useRef();
 
-  const handleChange = (evt) => {
-    setChatData(evt.target.value);
-  }
-  const addChat = (evt) => {
-    setChatId(evt.currentTarget.id)
+  const addChat = (id) => {
+    setChatId(id)
     setChatContent(true)
+    setMessages([]);
+    // textFieldRef.current.value = ''
   }
 
   const handleSubmit = (evt) => {
-
     evt.preventDefault();
     onAddMessage({
       chatId: chatId,
-      message: chatData
+      message: textFieldRef.current.value
     });
+    textFieldRef.current.value = ''
+  }
+
+  const onSearch = (text) => {
+    setSearchText(text)
   }
 
   return (
@@ -35,24 +39,26 @@ const Main = ({ onAddMessage, messages, userContact }) => {
       <div className='content__left'>
         <div className='content__search-container'>
           <div className='content__search'>
-            <Search />
-            <div className='content__elem'>
-              <img className='content__img' src={envelope} alt='Конверт' />
-
-            </div>
+            <Search onSearch={onSearch} />
           </div>
         </div>
         <div className='content__contacts-container'>
+
           {
-            userContact.map((item) => {
-              return <Contact
-                key={item.id}
-                userName={item.name}
-                onClick={addChat}
-                contactId={item.id}
-                contactact={item}
-              />
-            })
+            userContacts
+              .filter((contact) => {
+                if (!searchText) {
+                  return true;
+                }
+                return contact.name.toLowerCase().includes(searchText.toLowerCase())
+              })
+              .map((userContact) => {
+                return <Contact
+                  key={userContact.id}
+                  onClick={addChat}
+                  contact={userContact}
+                />
+              })
           }
         </div>
       </div>
@@ -73,7 +79,7 @@ const Main = ({ onAddMessage, messages, userContact }) => {
                 <img className='content__item' src={clip} alt='Скрепка' />
               </div>
               <form className='content__form' onSubmit={handleSubmit}>
-                <TextField onChange={handleChange} />
+                <TextField refItem={textFieldRef} />
                 <button
                   className='content__btn'
                   type='submit'

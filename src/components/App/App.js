@@ -10,7 +10,7 @@ function App() {
   const [currentUser, setCurrentUser] = useState({});
   const [messages, setMessages] = useState([]);
   const [userId, setUserId] = useState('');
-  const [userContact, setUserContact] = useState([]);
+  const [userContacts, setUserContacts] = useState([]);
 
   useEffect(() => {
     const idInstance = localStorage.getItem('idInstance');
@@ -21,7 +21,7 @@ function App() {
     api.getUserContact(idInstance, apiTokenInstance)
       .then((userContact) => {
         // console.log(userContact)
-        setUserContact(userContact)
+        setUserContacts(userContact)
       })
       .catch((err) => {
         console.log(`Ошибка: ${err}`);
@@ -32,32 +32,16 @@ function App() {
     setCurrentUser(data)
     localStorage.setItem('apiTokenInstance', data.apiTokenInstance);
     localStorage.setItem('idInstance', data.idInstance);
-    api.getUserInfo( data.idInstance, data.apiTokenInstance )
+    api.getUserInfo(data.idInstance, data.apiTokenInstance)
       .then((data) => {
         setUserId(data.wid)
         localStorage.setItem('wid', data.wid);
         navigate('/chat')
-    })
+      })
       .catch((err) => {
         console.log(`Ошибка: ${err}`);
       })
   }
-
-  // const handleGetCredentials = (data) => {
-  //   setCurrentUser(data)
-  //   localStorage.setItem('apiTokenInstance', data.apiTokenInstance);
-  //   localStorage.setItem('idInstance', data.idInstance);
-  //   Promise.all([api.getUserInfo(data.idInstance, data.apiTokenInstance), api.getUserContact(data.idInstance, data.apiTokenInstance)])
-  //     .then(([userData, userContact]) => {
-  //       setUserId(userData.wid)
-  //       setUserContact(userContact)
-  //       localStorage.setItem('wid', data.wid);
-  //       navigate('/chat')
-  //     })
-  //     .catch((err) => {
-  //       console.log(`Ошибка: ${err}`);
-  //     })
-  // }
 
   const handleAddMessageSubmit = (data) => {
     const idInstance = localStorage.getItem('idInstance');
@@ -65,17 +49,16 @@ function App() {
     if (!idInstance || !apiTokenInstance) {
       return;
     }
-    console.log(data, idInstance, apiTokenInstance)
-    api.addMessage(data, idInstance, apiTokenInstance)
-      .then((newMessage) => {
-        setMessages([newMessage, ...messages]);
+    // api.addMessage(data, idInstance, apiTokenInstance)
+    //   .then((newMessage) => {
+    //     setMessages([newMessage, ...messages]);
 
-      })
-      .catch((err) => {
-        console.log(`Ошибка: ${err}`);
-      })
-      .finally(() => {
-      })
+    //   })
+    //   .catch((err) => {
+    //     console.log(`Ошибка: ${err}`);
+    //   })
+    //   .finally(() => {
+    //   })
   };
 
   return (
@@ -86,7 +69,7 @@ function App() {
           element={<ChatPage
             onAddMessage={handleAddMessageSubmit}
             messages={messages}
-            userContact={userContact}
+            userContacts={userContacts}
           />}
         />
         <Route

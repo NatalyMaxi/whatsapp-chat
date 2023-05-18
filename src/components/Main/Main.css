@@ -21,28 +21,11 @@
   display: flex;
   width: 100%;
   height: 49px;
-  padding-left: 12px;
-}
-
-.content__elem {
-  align-self: center;
-  width: 32px;
-  height: 26px;
-  margin: 0 8px;
-  border-radius: 50%;
-  padding: 2px;
-  box-sizing: border-box;
-  cursor: pointer;
+  padding: 0 12px;
 }
 
 .content__elem_active {
   background-color: #00a884;
-}
-
-.content__img {
-  width: 100%;
-  height: 100%;
-  object-fit: cover;
 }
 
 .content__contacts-container {
@@ -71,7 +54,7 @@
 .content__right {
   display: flex;
   width: 100%;
-  background-image: url('../../images/fff.png');
+  background-image: url('../../images/telephone.png');
   background-repeat: no-repeat;
   background-position: center;
 }
