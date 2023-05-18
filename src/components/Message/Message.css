@@ -1,0 +1,16 @@
+.message {
+  align-self: flex-end;
+  font-size: 14px;
+  min-width: 10%;
+  max-width: 70%;
+  background-color: #d9fdd3;
+  border-radius: 10px;
+  margin: 0;
+  padding: 10px;
+  box-sizing: border-box;
+}
+
+.message_type_incoming {
+  background-color: #ffffff;
+  align-self: start;
+}

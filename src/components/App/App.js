@@ -1,5 +1,4 @@
 import { Route, Routes, useNavigate } from 'react-router-dom';
-import { CurrentUserContext } from '../../contexts/CurrentUserContext';
 import React, { useState, useEffect } from 'react';
 import Authorization from '../Authorization/Authorization';
 import ChatPage from '../ChatPage/ChatPage';
@@ -7,9 +6,7 @@ import api from '../../utils/api';
 
 function App() {
   const navigate = useNavigate();
-  const [currentUser, setCurrentUser] = useState({});
   const [messages, setMessages] = useState([]);
-  const [userId, setUserId] = useState('');
   const [userContacts, setUserContacts] = useState([]);
 
   useEffect(() => {
@@ -20,7 +17,6 @@ function App() {
     }
     api.getUserContact(idInstance, apiTokenInstance)
       .then((userContact) => {
-        // console.log(userContact)
         setUserContacts(userContact)
       })
       .catch((err) => {
@@ -29,13 +25,10 @@ function App() {
   }, [])
 
   const handleGetCredentials = (data) => {
-    setCurrentUser(data)
     localStorage.setItem('apiTokenInstance', data.apiTokenInstance);
     localStorage.setItem('idInstance', data.idInstance);
     api.getUserInfo(data.idInstance, data.apiTokenInstance)
       .then((data) => {
-        setUserId(data.wid)
-        localStorage.setItem('wid', data.wid);
         navigate('/chat')
       })
       .catch((err) => {
@@ -49,20 +42,19 @@ function App() {
     if (!idInstance || !apiTokenInstance) {
       return;
     }
-    // api.addMessage(data, idInstance, apiTokenInstance)
-    //   .then((newMessage) => {
-    //     setMessages([newMessage, ...messages]);
+    api.addMessage(data, idInstance, apiTokenInstance)
+      .then((newMessage) => {
+        setMessages([newMessage, ...messages]);
 
-    //   })
-    //   .catch((err) => {
-    //     console.log(`Ошибка: ${err}`);
-    //   })
-    //   .finally(() => {
-    //   })
+      })
+      .catch((err) => {
+        console.log(`Ошибка: ${err}`);
+      })
+      .finally(() => {
+      })
   };
 
   return (
-    <CurrentUserContext.Provider value={currentUser}>
       <Routes>
         <Route
           path='/chat'
@@ -70,6 +62,7 @@ function App() {
             onAddMessage={handleAddMessageSubmit}
             messages={messages}
             userContacts={userContacts}
+            api={api}
           />}
         />
         <Route
@@ -79,7 +72,6 @@ function App() {
           />}
         />
       </Routes>
-    </CurrentUserContext.Provider>
   );
 }
 

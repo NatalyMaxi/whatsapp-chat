@@ -1,10 +1,14 @@
 import './Message.css';
 
-const Message = ({ message }) => {
+const Message = ({ message, type }) => {
+  const incoming = type === 'incoming' ? true : false
 
   return (
-    <div className='message'>
-      {message}
+    <div className={incoming ? `${'message'} ${'message_type_incoming'}` : `${'message'}`}>
+      <span>
+        {message}
+      </span>
+
     </div>
   );
 }

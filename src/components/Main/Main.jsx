@@ -7,18 +7,32 @@ import smail from '../../images/smail.png'
 import Contact from '../Contact/Contact';
 import Message from '../Message/Message';
 
-const Main = ({ onAddMessage, userContacts }) => {
+const Main = ({ onAddMessage, userContacts, api }) => {
   const [chatContent, setChatContent] = useState(false)
   const [chatId, setChatId] = useState('');
   const [messages, setMessages] = useState([]);
   const [searchText, setSearchText] = useState('');
   const textFieldRef = useRef();
+  let interval
 
   const addChat = (id) => {
     setChatId(id)
     setChatContent(true)
     setMessages([]);
-    // textFieldRef.current.value = ''
+
+    // clearInterval(interval)
+
+    // interval = setInterval(() => {
+    //   const idInstance = localStorage.getItem('idInstance');
+    //   const apiTokenInstance = localStorage.getItem('apiTokenInstance');
+    //   api.getChatHistory(id, idInstance, apiTokenInstance)
+    //     .then((data) => {
+    //       setMessages(data)
+    //     })
+    //     .catch((err) => {
+    //       console.log(`Ошибка: ${err}`);
+    //     })
+    // }, 5000)
   }
 
   const handleSubmit = (evt) => {
@@ -65,14 +79,19 @@ const Main = ({ onAddMessage, userContacts }) => {
       {
         chatContent ?
           (<div className='content__right content__right_type_background'>
-            {/* {
-              messages.map((message) => {
-                return <Message
-                  key={message.idMessage}
-                  message={message}
-                />
-              })
-            } */}
+            <div className='content__messages'>
+              {
+                messages.map((item, index) => {
+                  return <Message
+                    key={index}
+                    // key={item.idMessage}
+                    message={item.textMessage}
+                    type={item.type}
+                  />
+                })
+              }
+            </div>
+
             <div className='content__chat'>
               <div className='content__items'>
                 <img className='content__item' src={smail} alt='Смайлик' />

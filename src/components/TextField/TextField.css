@@ -22,10 +22,6 @@
   width: 12px;
 }
 
-.textField::-webkit-scrollbar {
-  width: 12px;
-}
-
 .textField::-webkit-scrollbar-track {
   background: #ffffff;
 }

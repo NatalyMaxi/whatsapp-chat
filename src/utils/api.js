@@ -36,6 +36,18 @@ class Api {
     })
       .then(this._checkResponse)
   }
+
+  //получим историю чата
+  getChatHistory(id, idInstance, apiTokenInstance) {
+    return fetch(`https://api.green-api.com/waInstance${idInstance}/getChatHistory/${apiTokenInstance}`, {
+      method: 'POST',
+      headers: this._headers,
+      body: JSON.stringify({
+        "chatId": id,
+      })
+    })
+      .then(this._checkResponse)
+  }
 }
 
 const api = new Api({

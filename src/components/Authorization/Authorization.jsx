@@ -7,6 +7,8 @@ const Authorization = ({ onGetCredentials }) => {
   const isValidIdInstance = regexIdInstance.test(userCredentials.idInstance);
   const isValidApiTokenInstance = regexApiTokenInstance.test(userCredentials.apiTokenInstance);
 
+  const validityData = !isValidIdInstance || !isValidApiTokenInstance ? true : false
+
   const handleChange = (evt) => {
     const { name, value } = evt.target;
     setUserCredentials(prevState => ({ ...prevState, [name]: value }));
@@ -19,8 +21,6 @@ const Authorization = ({ onGetCredentials }) => {
       apiTokenInstance: userCredentials.apiTokenInstance
     });
   }
-
-  const validityData = !isValidIdInstance || !isValidApiTokenInstance ? true : false
 
   return (
     <div className='auth'>
