@@ -10,9 +10,24 @@ import Message from '../Message/Message';
 
 const Main = ({ onAddMessage, messages, userContact }) => {
   const [chatContent, setChatContent] = useState(false)
+  const [chatData, setChatData] = useState('');
+  const [chatId, setChatId] = useState('');
 
-  const addChat = () => {
+  const handleChange = (evt) => {
+    setChatData(evt.target.value);
+  }
+  const addChat = (evt) => {
+    setChatId(evt.currentTarget.id)
     setChatContent(true)
+  }
+
+  const handleSubmit = (evt) => {
+
+    evt.preventDefault();
+    onAddMessage({
+      chatId: chatId,
+      message: chatData
+    });
   }
 
   return (
@@ -34,6 +49,8 @@ const Main = ({ onAddMessage, messages, userContact }) => {
                 key={item.id}
                 userName={item.name}
                 onClick={addChat}
+                contactId={item.id}
+                contactact={item}
               />
             })
           }
@@ -42,21 +59,21 @@ const Main = ({ onAddMessage, messages, userContact }) => {
       {
         chatContent ?
           (<div className='content__right content__right_type_background'>
-            {
+            {/* {
               messages.map((message) => {
                 return <Message
                   key={message.idMessage}
                   message={message}
                 />
               })
-            }
+            } */}
             <div className='content__chat'>
               <div className='content__items'>
                 <img className='content__item' src={smail} alt='Смайлик' />
                 <img className='content__item' src={clip} alt='Скрепка' />
               </div>
-              <form className='content__form' onSubmit={onAddMessage}>
-                <TextField />
+              <form className='content__form' onSubmit={handleSubmit}>
+                <TextField onChange={handleChange} />
                 <button
                   className='content__btn'
                   type='submit'

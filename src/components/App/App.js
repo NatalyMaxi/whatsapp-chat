@@ -65,6 +65,7 @@ function App() {
     if (!idInstance || !apiTokenInstance) {
       return;
     }
+    console.log(data, idInstance, apiTokenInstance)
     api.addMessage(data, idInstance, apiTokenInstance)
       .then((newMessage) => {
         setMessages([newMessage, ...messages]);

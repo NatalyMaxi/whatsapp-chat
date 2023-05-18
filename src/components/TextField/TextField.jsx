@@ -1,11 +1,11 @@
 import './TextField.css';
 
 const TextField = (props) => {
-  const handleChangeAndSize = (ev) => {
-    const target = ev.target;
+  const handleChangeAndSize = (evt) => {
+    const target = evt.target;
     target.style.height = '42px';
     target.style.height = `${target.scrollHeight}px`;
-
+    props.onChange(evt)
     // handleChange(ev);
   };
   return (
@@ -14,7 +14,9 @@ const TextField = (props) => {
       type='text'
       onChange={handleChangeAndSize}
       placeholder='Введите сообщение'
-    />
+      name='textField'
+      spellheck= 'true'
+  ></textarea>
 
   );
 }
