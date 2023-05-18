@@ -71,6 +71,9 @@
 .content__right {
   display: flex;
   width: 100%;
+  background-image: url('../../images/fff.png');
+  background-repeat: no-repeat;
+  background-position: center;
 }
 
 .content__right_type_background {
@@ -90,16 +93,6 @@
   box-sizing: border-box;
 }
 
-.content__btn {
-  width: 40px;
-  height: 40px;
-  background-image: url('../../images/2643824.png');
-  background-position: center;
-  background-size: cover;
-  background-repeat: no-repeat;
-  cursor: pointer;
-}
-
 .content__items {
   display: flex;
   width: 82px;
@@ -109,5 +102,21 @@
 .content__item {
   width: 26px;
   height: 26px;
+  cursor: pointer;
+}
+
+.content__form {
+  display: flex;
+  width: 100%;
+}
+
+.content__btn {
+  width: 40px;
+  height: 40px;
+  background-image: url('../../images/arrow.png');
+  background-position: center;
+  background-size: cover;
+  background-repeat: no-repeat;
+  border: none;
   cursor: pointer;
 }

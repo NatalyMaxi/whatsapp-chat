@@ -1,0 +1,37 @@
+.textField {
+  font-size: 15px;
+  font-weight: 400;
+  line-height: 20px;
+  font-weight: 400;
+  width: 100%;
+  max-height: 7.35em;
+  color: #3b4a54;
+  background-color: #ffffff;
+  border-radius: 8px;
+  padding: 2px 12px;
+  outline: none;
+  border: none;
+  box-sizing: border-box;
+}
+
+.textField:focus {
+  outline: none;
+}
+
+.textField::-webkit-scrollbar {
+  width: 12px;
+}
+
+.textField::-webkit-scrollbar {
+  width: 12px;
+}
+
+.textField::-webkit-scrollbar-track {
+  background: #ffffff;
+}
+
+.textField::-webkit-scrollbar-thumb {
+  background-color: #e2e4e7;
+  border-radius: 20px;
+  border: 3px solid #ffffff;
+}

@@ -12,7 +12,8 @@ const ChatPage = ({ onAddMessage, messages, userContact }) => {
         <Main
           onAddMessage={onAddMessage}
           messages={messages}
-          userContact={userContact} />
+          userContact={userContact}
+        />
       </div>
     </div>
 

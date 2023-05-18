@@ -44,6 +44,7 @@ const Authorization = ({ onGetCredentials }) => {
             name='apiTokenInstance'
           />
           <button
+            type='submit'
             disabled={validityData}
             className={validityData ? `${'auth__button'} ${'auth__button_disabled'}` : `${'auth__button'}`}>Войти</button>
         </form>
