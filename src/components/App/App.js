@@ -50,50 +50,54 @@ function App() {
       return;
     }
     setMessages([{ textMessage: data.message, type: 'outgoing' }, ...messages]);
-    api.addMessage(data, chatId, idInstance, apiTokenInstance)
-      .then(() => {
-        setMessages([{ textMessage: data.message, type: 'outgoing' }, ...messages]);
+    // api.addMessage(data, chatId, idInstance, apiTokenInstance)
+    //   .then(() => {
+    //     setMessages([{ textMessage: data.message, type: 'outgoing' }, ...messages]);
 
-      })
-      .catch((err) => {
-        console.log(`Ошибка: ${err}`);
-      })
-      .finally(() => {
-      })
+    //   })
+    //   .catch((err) => {
+    //     console.log(`Ошибка: ${err}`);
+    //   })
+    //   .finally(() => {
+    //   })
   };
 
   // По клику на контакт добавим чат с контактом, осуществляется проверка входищих уведомлений от контакта
   const addChat = (id) => {
     setChatId(id)
     setChatContent(true)
+    console.log('Сработало обновление')
     setMessages([]);
 
     clearInterval(interval)
 
-    interval = setInterval(() => {
-      const idInstance = localStorage.getItem('idInstance');
-      const apiTokenInstance = localStorage.getItem('apiTokenInstance');
-      api.getNotification(idInstance, apiTokenInstance)
-        .then((data) => {
-          if (data === null) {
-            console.log('Уведомлений нет')
-            return
-          } else {
-            if (!data.body.messageData || data.body.messageData.textMessageData.textMessage === undefined) {
-              setMessages(messages)
-            } else {
-              setMessages([{ textMessage: data.body.messageData.textMessageData.textMessage, type: 'incoming' }, ...messages])
-            }
-            api.deleteNotification(data.receiptId, idInstance, apiTokenInstance)
-              .then(() => {
-                console.log('Уведомление удалено')
-              })
-          }
-        })
-        .catch((err) => {
-          console.log(`Ошибка: ${err}`);
-        })
-    }, 7000)
+    // interval = setInterval(() => {
+    //   const idInstance = localStorage.getItem('idInstance');
+    //   const apiTokenInstance = localStorage.getItem('apiTokenInstance');
+    //   api.getNotification(idInstance, apiTokenInstance)
+    //     .then((data) => {
+    //       if (data === null) {
+    //         console.log('Уведомлений нет')
+    //         return
+    //       } else {
+    //         if (data.body.typeMessage === "textMessage") {
+    //           setMessages([{ textMessage: data.body.messageData.textMessageData.textMessage, type: 'incoming' }, ...messages])
+    //         } else if (data.body.typeMessage === "extendedTextMessageData") {
+    //           setMessages([{ textMessage: data.body.messageData.extendedTextMessageData.text, type: 'incoming' }, ...messages])
+    //         } else  {
+    //           setMessages(messages)
+    //         }
+    //       }
+    //       api.deleteNotification(data.receiptId, idInstance, apiTokenInstance)
+    //         .then(() => {
+    //           console.log('Уведомление удалено')
+    //         })
+    //         .catch((err) => {
+    //           console.log(`Ошибка: ${err}`);
+    //         })
+    //     })
+
+    // }, 7000)
   }
 
   const onSearch = (text) => {

@@ -22,6 +22,7 @@ const TextField = (props) => {
       spellheck='true'
       ref={props.refItem}
       minLength="1"
+      required
     ></textarea>
 
   );
