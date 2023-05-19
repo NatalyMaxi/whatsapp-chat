@@ -21,6 +21,7 @@ const TextField = (props) => {
       name='textField'
       spellheck='true'
       ref={props.refItem}
+      minLength="1"
     ></textarea>
 
   );

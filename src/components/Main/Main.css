@@ -87,18 +87,6 @@ overflow-y: auto;
   box-sizing: border-box;
 }
 
-.content__items {
-  display: flex;
-  width: 82px;
-  gap: 10px;
-}
-
-.content__item {
-  width: 26px;
-  height: 26px;
-  cursor: pointer;
-}
-
 .content__form {
   display: flex;
   width: 100%;

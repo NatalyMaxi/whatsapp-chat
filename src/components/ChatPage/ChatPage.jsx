@@ -2,7 +2,7 @@ import Header from '../Header/Header';
 import Main from '../Main/Main';
 import './ChatPage.css';
 
-const ChatPage = ({ onAddMessage, messages, userContacts, api }) => {
+const ChatPage = ({ onAddMessage, userContacts, addChat, searchText, messages, onSearch, chatContent }) => {
 
   return (
     <div className='chat'>
@@ -13,7 +13,10 @@ const ChatPage = ({ onAddMessage, messages, userContacts, api }) => {
           onAddMessage={onAddMessage}
           messages={messages}
           userContacts={userContacts}
-          api={api}
+          addChat={addChat}
+          searchText={searchText}
+          onSearch={onSearch}
+          chatContent={chatContent}
         />
       </div>
     </div>

@@ -25,12 +25,12 @@ class Api {
   }
 
   //добавим новое сообщение
-  addMessage(data, idInstance, apiTokenInstance) {
+  addMessage(data, chatId, idInstance, apiTokenInstance) {
     return fetch(`https://api.green-api.com/waInstance${idInstance}/SendMessage/${apiTokenInstance}`, {
       method: 'POST',
       headers: this._headers,
       body: JSON.stringify({
-        "chatId": data.chatId,
+        "chatId": chatId,
         "message": data.message
       })
     })
@@ -45,6 +45,24 @@ class Api {
       body: JSON.stringify({
         "chatId": id,
       })
+    })
+      .then(this._checkResponse)
+  }
+
+  //получим уведомление
+  getNotification(idInstance, apiTokenInstance) {
+    return fetch(`https://api.green-api.com/waInstance${idInstance}/receiveNotification/${apiTokenInstance}`, {
+      method: 'GET',
+      headers: this._headers,
+    })
+      .then(this._checkResponse)
+  }
+
+  //удалим уведомелние
+  deleteNotification(receiptId, idInstance, apiTokenInstance) {
+    return fetch(`https://api.green-api.com/waInstance${idInstance}/deleteNotification/${apiTokenInstance}/${receiptId}`, {
+      method: 'DELETE',
+      headers: this._headers,
     })
       .then(this._checkResponse)
   }
