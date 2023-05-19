@@ -66,7 +66,6 @@ function App() {
   const addChat = (id) => {
     setChatId(id)
     setChatContent(true)
-    console.log('Сработало обновление')
     setMessages([]);
 
     clearInterval(interval)
@@ -79,25 +78,21 @@ function App() {
           if (data === null) {
             console.log('Уведомлений нет')
             return
-          } else {
-            if (data.body.typeMessage === "textMessage") {
+          } else if (data.body.messageData !== undefined) {
+            console.log(data.receiptId)
+            if (data.body.messageData.typeMessage === "textMessage") {
               setMessages([{ textMessage: data.body.messageData.textMessageData.textMessage, type: 'incoming' }, ...messages])
-            } else if (data.body.typeMessage === "extendedTextMessageData") {
+              api.deleteNotification(data.receiptId, idInstance, apiTokenInstance)
+            } else if (data.body.messageData.typeMessage === "extendedTextMessageData") {
               setMessages([{ textMessage: data.body.messageData.extendedTextMessageData.text, type: 'incoming' }, ...messages])
-            } else  {
-              setMessages(messages)
+              api.deleteNotification(data.receiptId, idInstance, apiTokenInstance)
             }
-          }
-          api.deleteNotification(data.receiptId, idInstance, apiTokenInstance)
-            .then(() => {
-              console.log('Уведомление удалено')
-            })
-            .catch((err) => {
-              console.log(`Ошибка: ${err}`);
-            })
+          }else {api.deleteNotification(data.receiptId, idInstance, apiTokenInstance)}
+        }).catch((err) => {
+          console.log(`Ошибка: ${err}`);
         })
 
-    }, 7000)
+    }, 8000)
   }
 
   const onSearch = (text) => {
