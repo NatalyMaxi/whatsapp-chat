@@ -52,8 +52,7 @@ function App() {
     setMessages([{ textMessage: data.message, type: 'outgoing' }, ...messages]);
     api.addMessage(data, chatId, idInstance, apiTokenInstance)
       .then(() => {
-        setMessages([{ textMessage: data.message, type: 'outgoing' }, ...messages]);
-
+        // setMessages(prevState => ([...prevState, { textMessage: data.message, type: 'outgoing' }]))
       })
       .catch((err) => {
         console.log(`Ошибка: ${err}`);
@@ -81,10 +80,12 @@ function App() {
           } else if (data.body.messageData !== undefined) {
             console.log(data.receiptId)
             if (data.body.messageData.typeMessage === "textMessage") {
-              setMessages([{ textMessage: data.body.messageData.textMessageData.textMessage, type: 'incoming' }, ...messages])
+              setMessages(prevState => ([...prevState, { textMessage: data.body.messageData.textMessageData.textMessage, type: 'incoming' }] ))
+              // setMessages([{ textMessage: data.body.messageData.textMessageData.textMessage, type: 'incoming' }, ...messages])
               api.deleteNotification(data.receiptId, idInstance, apiTokenInstance)
             } else if (data.body.messageData.typeMessage === "extendedTextMessageData") {
-              setMessages([{ textMessage: data.body.messageData.extendedTextMessageData.text, type: 'incoming' }, ...messages])
+              setMessages(prevState => ([...prevState, { textMessage: data.body.messageData.extendedTextMessageData.text, type: 'incoming' }]))
+              // setMessages([{ textMessage: data.body.messageData.extendedTextMessageData.text, type: 'incoming' }, ...messages])
               api.deleteNotification(data.receiptId, idInstance, apiTokenInstance)
             }
           }else {api.deleteNotification(data.receiptId, idInstance, apiTokenInstance)}
