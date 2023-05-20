@@ -95,7 +95,7 @@ function App() {
   return (
     <Routes>
       <Route
-        path='chat'
+        path='/chat'
         element={<ChatPage
           onAddMessage={handleAddMessageSubmit}
           messages={messages}
@@ -107,14 +107,14 @@ function App() {
         />}
       />
       <Route
-        path='auth'
+        path='/auth'
         element={<Authorization
           onGetCredentials={handleGetCredentials}
         />}
       />
       <Route
         path='/'
-        element={<Navigate to='auth' replace />}
+        element={<Navigate to='/auth' replace />}
       />
     </Routes>
   );
