@@ -51,8 +51,7 @@ function App() {
     }
     api.addMessage(data, chatId, idInstance, apiTokenInstance)
       .then(() => {
-        let date = new Date();
-        setMessages(prevState => ([...prevState, { textMessage: data.message, type: 'outgoing', time: date.toLocaleTimeString() }]))
+        console.log('сообщение отправлено')
       })
       .catch((err) => {
         console.log(`Ошибка: ${err}`);
@@ -74,13 +73,12 @@ function App() {
       api.getNotification(idInstance, apiTokenInstance)
         .then((data) => {
           if (data === null) {
-            console.log('Уведомлений нет')
             return
           } else if (!data.body.hasOwnProperty('messageData')) {
             api.deleteNotification(data.receiptId, idInstance, apiTokenInstance)
           } else {
             let date = new Date();
-            setMessages(prevState => ([...prevState, { time: date.toLocaleTimeString(), type: 'incoming', ...data.body.messageData }]))
+            setMessages(prevState => ([...prevState, { time: date.toLocaleTimeString(), ...data.body.messageData }]))
             api.deleteNotification(data.receiptId, idInstance, apiTokenInstance)
           }
 
