@@ -16,6 +16,12 @@ const Main = ({ onAddMessage, userContacts, addChat, searchText, messages, onSea
     textFieldRef.current.value = ''
   }
 
+  const handleOnKeyUp = (evt) => {
+    if (evt.keyCode === 13) {
+      handleSubmit(evt)
+    }
+  }
+
   return (
     <main className='content'>
       <div className='content__left'>
@@ -52,17 +58,45 @@ const Main = ({ onAddMessage, userContacts, addChat, searchText, messages, onSea
           (<div className='content__right content__right_type_background'>
             <div className='content__messages'>
               {
-                messages.reverse().map((item, index) => {
+                messages.map((item, index) => {
+
+                  if (item.hasOwnProperty('typeMessage')) {
+                    if (item.typeMessage === "textMessage") {
+                      return <Message
+                        key={index}
+                        message={item.textMessageData.textMessage}
+                        type={item.type}
+                        timeReceivingMessages={item.time}
+                      />
+                    }
+                    if (item.typeMessage === "extendedTextMessageData") {
+                      return <Message
+                        key={index}
+                        message={item.extendedTextMessageData.text}
+                        type={item.type}
+                        timeReceivingMessages={item.time}
+                      />
+                    }
+                    else {
+                      return <Message
+                        key={index}
+                        message='Неподдерживаемый формат сообщения'
+                        type={item.type}
+                        timeReceivingMessages={item.time}
+                      />
+                    }
+                  }
                   return <Message
                     key={index}
                     message={item.textMessage}
                     type={item.type}
+                    timeReceivingMessages={item.time}
                   />
                 })
               }
             </div>
             <div className='content__chat'>
-              <form className='content__form' onSubmit={handleSubmit}>
+              <form className='content__form' onKeyUp={handleOnKeyUp} onSubmit={handleSubmit}>
                 <TextField refItem={textFieldRef} />
                 <button
                   className='content__btn'

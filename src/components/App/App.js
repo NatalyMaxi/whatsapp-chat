@@ -13,6 +13,19 @@ function App() {
   const [searchText, setSearchText] = useState('');
   let interval
 
+  // Авторизуемся
+  const handleGetCredentials = (data) => {
+    localStorage.setItem('apiTokenInstance', data.apiTokenInstance);
+    localStorage.setItem('idInstance', data.idInstance);
+    api.getUserInfo(data.idInstance, data.apiTokenInstance)
+      .then((data) => {
+        navigate('/chat')
+      })
+      .catch((err) => {
+        console.log(`Ошибка: ${err}`);
+      })
+  }
+
   // Получим контакты пользователя
   useEffect(() => {
     const idInstance = localStorage.getItem('idInstance');
@@ -29,19 +42,6 @@ function App() {
       })
   }, [])
 
-  // Авторизуемся
-  const handleGetCredentials = (data) => {
-    localStorage.setItem('apiTokenInstance', data.apiTokenInstance);
-    localStorage.setItem('idInstance', data.idInstance);
-    api.getUserInfo(data.idInstance, data.apiTokenInstance)
-      .then((data) => {
-        navigate('/chat')
-      })
-      .catch((err) => {
-        console.log(`Ошибка: ${err}`);
-      })
-  }
-
   // Отправим сообщение
   const handleAddMessageSubmit = (data) => {
     const idInstance = localStorage.getItem('idInstance');
@@ -49,19 +49,18 @@ function App() {
     if (!idInstance || !apiTokenInstance) {
       return;
     }
-    setMessages([{ textMessage: data.message, type: 'outgoing' }, ...messages]);
     api.addMessage(data, chatId, idInstance, apiTokenInstance)
       .then(() => {
-        // setMessages(prevState => ([...prevState, { textMessage: data.message, type: 'outgoing' }]))
+        let date = new Date();
+        setMessages(prevState => ([...prevState, { textMessage: data.message, type: 'outgoing', time: date.toLocaleTimeString() }]))
       })
       .catch((err) => {
         console.log(`Ошибка: ${err}`);
       })
-      .finally(() => {
-      })
   };
 
   // По клику на контакт добавим чат с контактом, осуществляется проверка входищих уведомлений от контакта
+
   const addChat = (id) => {
     setChatId(id)
     setChatContent(true)
@@ -77,23 +76,18 @@ function App() {
           if (data === null) {
             console.log('Уведомлений нет')
             return
-          } else if (data.body.messageData !== undefined) {
-            console.log(data.receiptId)
-            if (data.body.messageData.typeMessage === "textMessage") {
-              setMessages(prevState => ([...prevState, { textMessage: data.body.messageData.textMessageData.textMessage, type: 'incoming' }] ))
-              // setMessages([{ textMessage: data.body.messageData.textMessageData.textMessage, type: 'incoming' }, ...messages])
-              api.deleteNotification(data.receiptId, idInstance, apiTokenInstance)
-            } else if (data.body.messageData.typeMessage === "extendedTextMessageData") {
-              setMessages(prevState => ([...prevState, { textMessage: data.body.messageData.extendedTextMessageData.text, type: 'incoming' }]))
-              // setMessages([{ textMessage: data.body.messageData.extendedTextMessageData.text, type: 'incoming' }, ...messages])
-              api.deleteNotification(data.receiptId, idInstance, apiTokenInstance)
-            }
-          }else {api.deleteNotification(data.receiptId, idInstance, apiTokenInstance)}
+          } else if (!data.body.hasOwnProperty('messageData')) {
+            api.deleteNotification(data.receiptId, idInstance, apiTokenInstance)
+          } else {
+            let date = new Date();
+            setMessages(prevState => ([...prevState, { time: date.toLocaleTimeString(), type: 'incoming', ...data.body.messageData }]))
+            api.deleteNotification(data.receiptId, idInstance, apiTokenInstance)
+          }
+
         }).catch((err) => {
           console.log(`Ошибка: ${err}`);
         })
-
-    }, 8000)
+    }, 6000)
   }
 
   const onSearch = (text) => {

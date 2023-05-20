@@ -34,7 +34,7 @@ const Authorization = ({ onGetCredentials }) => {
             onChange={handleChange}
             value={userCredentials.idInstance || ''}
             name='idInstance'
-            type='password'
+            // type='password'
           />
           <input
             className='auth__input'
@@ -43,7 +43,7 @@ const Authorization = ({ onGetCredentials }) => {
             onChange={handleChange}
             value={userCredentials.apiTokenInstance || ''}
             name='apiTokenInstance'
-            type='password'
+            // type='password'
           />
           <button
             type='submit'

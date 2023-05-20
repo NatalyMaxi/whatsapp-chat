@@ -1,4 +1,7 @@
 .message {
+  display: flex;
+  flex-direction: column;
+  gap: 5px;
   align-self: flex-end;
   font-size: 14px;
   min-width: 10%;
@@ -13,4 +16,9 @@
 .message_type_incoming {
   background-color: #ffffff;
   align-self: start;
+}
+
+.message__time {
+  font-size: 10px;
+  align-self: flex-end;
 }

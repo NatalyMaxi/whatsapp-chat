@@ -1,6 +1,6 @@
 import './Message.css';
 
-const Message = ({ message, type }) => {
+const Message = ({ message, type, timeReceivingMessages }) => {
   const incoming = type === 'incoming' ? true : false
 
   return (
@@ -8,7 +8,9 @@ const Message = ({ message, type }) => {
       <span>
         {message}
       </span>
-
+      <span className='message__time'>
+        {timeReceivingMessages}
+      </span>
     </div>
   );
 }
