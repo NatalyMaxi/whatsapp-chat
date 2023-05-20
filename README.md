@@ -6,7 +6,7 @@
   -  Получение контактов пользователя;
   -  Отправление текстового сообщения;
   -  Получение текстового сообщения;
-  -  Запросы идут к сервису [GREEN API](https://green-api.com/)  ;
+  -  Запросы идут к сервису [GREEN API](https://green-api.com/);
 
 ### :computer: Стек технологий:
 React <img src="https://img.icons8.com/ultraviolet/38/000000/react--v1.png" alt="React" width="20" height="20"/>
@@ -32,4 +32,3 @@ $ npm run start
 
 
 Тестовое задание доступно по [ссылке](https://drive.google.com/file/d/1ZLMtJ44iuPheqpa9uDkXzFFGeWdq7ceX/view)
-Демо версия [ссылке]().

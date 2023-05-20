@@ -1,4 +1,4 @@
-import { Route, Routes, useNavigate } from 'react-router-dom';
+import { Route, Routes, useNavigate, Navigate } from 'react-router-dom';
 import React, { useState, useEffect } from 'react';
 import Authorization from '../Authorization/Authorization';
 import ChatPage from '../ChatPage/ChatPage';
@@ -95,7 +95,7 @@ function App() {
   return (
     <Routes>
       <Route
-        path='/chat'
+        path='chat'
         element={<ChatPage
           onAddMessage={handleAddMessageSubmit}
           messages={messages}
@@ -107,10 +107,14 @@ function App() {
         />}
       />
       <Route
-        path='/'
+        path='auth'
         element={<Authorization
           onGetCredentials={handleGetCredentials}
         />}
+      />
+      <Route
+        path='/'
+        element={<Navigate to='auth' replace />}
       />
     </Routes>
   );
