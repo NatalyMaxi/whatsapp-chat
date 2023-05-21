@@ -2,6 +2,7 @@ import { Route, Routes, useNavigate, Navigate } from 'react-router-dom';
 import React, { useState, useEffect } from 'react';
 import Authorization from '../Authorization/Authorization';
 import ChatPage from '../ChatPage/ChatPage';
+import PageNotFound from '../PageNotFound/PageNotFound';
 import api from '../../utils/api';
 
 function App() {
@@ -11,7 +12,7 @@ function App() {
   const [chatContent, setChatContent] = useState(false);
   const [chatId, setChatId] = useState('');
   const [searchText, setSearchText] = useState('');
-  let interval
+  const [intervalDescriptor, setIntervalDescriptor] = useState();
 
   // Авторизуемся
   const handleGetCredentials = (data) => {
@@ -65,9 +66,10 @@ function App() {
     setChatContent(true)
     setMessages([]);
 
-    clearInterval(interval)
+    clearInterval(intervalDescriptor)
 
-    interval = setInterval(() => {
+    const i = setInterval(() => {
+      console.log('ttt')
       const idInstance = localStorage.getItem('idInstance');
       const apiTokenInstance = localStorage.getItem('apiTokenInstance');
       api.getNotification(idInstance, apiTokenInstance)
@@ -86,6 +88,7 @@ function App() {
           console.log(`Ошибка: ${err}`);
         })
     }, 6000)
+    setIntervalDescriptor(i)
   }
 
   const onSearch = (text) => {
@@ -113,9 +116,10 @@ function App() {
         />}
       />
       <Route
-        path='/'
+        path='/whatsapp-chat'
         element={<Navigate to='/auth' replace />}
       />
+      <Route path='*' element={<PageNotFound />} />
     </Routes>
   );
 }
