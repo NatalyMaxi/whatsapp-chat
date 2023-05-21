@@ -3,6 +3,7 @@ import React, { useState, useEffect } from 'react';
 import Authorization from '../Authorization/Authorization';
 import ChatPage from '../ChatPage/ChatPage';
 import PageNotFound from '../PageNotFound/PageNotFound';
+import ProtectedRoute from '../ProtectedRoute';
 import api from '../../utils/api';
 
 function App() {
@@ -13,6 +14,7 @@ function App() {
   const [chatId, setChatId] = useState('');
   const [searchText, setSearchText] = useState('');
   const [intervalDescriptor, setIntervalDescriptor] = useState();
+  const [isLoggedIn, setIsLoggedIn] = useState(false);
 
   // Авторизуемся
   const handleGetCredentials = (data) => {
@@ -20,6 +22,7 @@ function App() {
     localStorage.setItem('idInstance', data.idInstance);
     api.getUserInfo(data.idInstance, data.apiTokenInstance)
       .then((data) => {
+        setIsLoggedIn(true)
         navigate('/chat')
       })
       .catch((err) => {
@@ -32,6 +35,7 @@ function App() {
     const idInstance = localStorage.getItem('idInstance');
     const apiTokenInstance = localStorage.getItem('apiTokenInstance');
     if (!idInstance || !apiTokenInstance) {
+      setIsLoggedIn(false)
       return;
     }
     api.getUserContact(idInstance, apiTokenInstance)
@@ -41,7 +45,7 @@ function App() {
       .catch((err) => {
         console.log(`Ошибка: ${err}`);
       })
-  }, [])
+  }, [isLoggedIn])
 
   // Отправим сообщение
   const handleAddMessageSubmit = (data) => {
@@ -98,15 +102,19 @@ function App() {
     <Routes>
       <Route
         path='/chat'
-        element={<ChatPage
-          onAddMessage={handleAddMessageSubmit}
-          messages={messages}
-          userContacts={userContacts}
-          addChat={addChat}
-          searchText={searchText}
-          onSearch={onSearch}
-          chatContent={chatContent}
-        />}
+        element={
+          <ProtectedRoute loggedIn={isLoggedIn}>
+            <ChatPage
+              onAddMessage={handleAddMessageSubmit}
+              messages={messages}
+              userContacts={userContacts}
+              addChat={addChat}
+              searchText={searchText}
+              onSearch={onSearch}
+              chatContent={chatContent}
+            ></ChatPage>
+          </ProtectedRoute>
+        }
       />
       <Route
         path='/auth'
