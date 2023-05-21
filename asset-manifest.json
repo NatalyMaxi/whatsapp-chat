@@ -1,16 +1,16 @@
 {
   "files": {
     "main.css": "/whatsapp-chat/static/css/main.0d563d5e.css",
-    "main.js": "/whatsapp-chat/static/js/main.bea48b83.js",
+    "main.js": "/whatsapp-chat/static/js/main.16b29db9.js",
     "static/media/background.png": "/whatsapp-chat/static/media/background.39f53e74f66d348d9f7c.png",
     "static/media/avatar.jpg": "/whatsapp-chat/static/media/avatar.836abc53dfc8f5ecb2ab.jpg",
     "static/media/arrow.png": "/whatsapp-chat/static/media/arrow.bd05ac256bfdf6236628.png",
     "index.html": "/whatsapp-chat/index.html",
     "main.0d563d5e.css.map": "/whatsapp-chat/static/css/main.0d563d5e.css.map",
-    "main.bea48b83.js.map": "/whatsapp-chat/static/js/main.bea48b83.js.map"
+    "main.16b29db9.js.map": "/whatsapp-chat/static/js/main.16b29db9.js.map"
   },
   "entrypoints": [
     "static/css/main.0d563d5e.css",
-    "static/js/main.bea48b83.js"
+    "static/js/main.16b29db9.js"
   ]
 }
