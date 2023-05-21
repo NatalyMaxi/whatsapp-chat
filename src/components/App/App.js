@@ -68,8 +68,7 @@ function App() {
 
     clearInterval(intervalDescriptor)
 
-    const i = setInterval(() => {
-      console.log('ttt')
+    const getMessage = setInterval(() => {
       const idInstance = localStorage.getItem('idInstance');
       const apiTokenInstance = localStorage.getItem('apiTokenInstance');
       api.getNotification(idInstance, apiTokenInstance)
@@ -88,7 +87,7 @@ function App() {
           console.log(`Ошибка: ${err}`);
         })
     }, 6000)
-    setIntervalDescriptor(i)
+    setIntervalDescriptor(getMessage)
   }
 
   const onSearch = (text) => {
@@ -116,7 +115,7 @@ function App() {
         />}
       />
       <Route
-        path='/whatsapp-chat'
+        path='/'
         element={<Navigate to='/auth' replace />}
       />
       <Route path='*' element={<PageNotFound />} />

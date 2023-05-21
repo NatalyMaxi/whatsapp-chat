@@ -31,4 +31,5 @@ $ npm run start
 * Добавить возможность получения и отправки сообщений любого формата;
 
 
-Тестовое задание доступно по [ссылке](https://drive.google.com/file/d/1ZLMtJ44iuPheqpa9uDkXzFFGeWdq7ceX/view)
+Тестовое задание доступно по [ссылке](https://drive.google.com/file/d/1ZLMtJ44iuPheqpa9uDkXzFFGeWdq7ceX/view)  
+Демо [ссылка](https://natalymaxi.github.io/whatsapp-chat)
